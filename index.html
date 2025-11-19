@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Luca Kramberger – Mobile App Developer (Flutter)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Portfolio of Luca Kramberger – Mobile App Developer (Flutter), specialized in cross-platform apps with Flutter & Dart."
+    />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #050509;
+        --bg-alt: #10101a;
+        --bg-card: #131320;
+        --accent: #ff3366;
+        --accent-soft: rgba(255, 51, 102, 0.18);
+        --text: #f5f5f7;
+        --text-muted: #a3a3b3;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+        --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+        --radius-xl: 24px;
+        --transition-fast: 180ms ease-out;
+        --transition-med: 260ms ease-out;
+        --max-width: 1080px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        min-height: 100%;
+        height: 100%;
+      }
+
+      body {
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+          sans-serif;
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        padding: 24px;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        background: radial-gradient(
+            circle at top left,
+            rgba(255, 51, 102, 0.12),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(102, 153, 255, 0.12),
+            transparent 55%
+          ),
+          #050509;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -3;
+        background: radial-gradient(circle at top left, #191933 0, #050509 40%);
+      }
+
+      /* Layout */
+
+      .page {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 28px;
+      }
+
+      @media (max-width: 1840px) {
+        body {
+          padding: 16px;
+        }
+
+        .page {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Sidebar */
+
+      .sidebar {
+        position: sticky;
+        top: 18px;
+        align-self: flex-start;
+        background: linear-gradient(145deg, #151524, #0a0a12);
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-soft);
+        padding: 22px 22px 18px;
+        overflow: hidden;
+      }
+
+      .sidebar::before {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: conic-gradient(
+          from 210deg,
+          rgba(255, 51, 102, 0.3),
+          rgba(123, 97, 255, 0.25),
+          rgba(51, 255, 194, 0.1),
+          rgba(255, 51, 102, 0.3)
+        );
+        opacity: 0.12;
+        filter: blur(28px);
+        z-index: -1;
+        animation: spinGlow 28s linear infinite;
+      }
+
+      @keyframes spinGlow {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .avatar {
+        width: 92px;
+        height: 92px;
+        border-radius: 18px;
+        background: radial-gradient(
+          circle at 30% 20%,
+          #ffffff,
+          #ffb3c7 35%,
+          #ff3366 70%,
+          #100915 100%
+        );
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 22px;
+        color: #1a0810;
+        overflow: hidden;
+      }
+
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 18px;
+      }
+
+      .sidebar-title h1 {
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 1.25;
+        letter-spacing: 0.02em;
+      }
+
+      .sidebar-title p {
+        font-size: 20px;
+        line-height: 1.1;
+        color: var(--text-muted);
+      }
+
+      .sidebar-contact {
+        margin-bottom: 18px;
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .sidebar-contact p + p {
+        margin-top: 4px;
+      }
+
+      .sidebar-contact a {
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px dotted rgba(255, 255, 255, 0.35);
+        transition: border-color var(--transition-fast),
+          color var(--transition-fast);
+      }
+
+      .sidebar-contact a:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .sidebar-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .badge {
+        font-size: 11px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        color: var(--text-muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #46d46b;
+        box-shadow: 0 0 0 6px rgba(70, 212, 107, 0.18);
+      }
+
+      .sidebar-nav {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding-top: 14px;
+        margin-top: 12px;
+      }
+
+      .sidebar-nav-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 13px;
+      }
+
+      .sidebar-nav-list button {
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border-radius: 999px;
+        border: none;
+        padding: 7px 9px;
+        color: var(--text-muted);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: background-color var(--transition-fast),
+          color var(--transition-fast), transform var(--transition-fast);
+        font-size: 18px;
+      }
+
+      .sidebar-nav-list button span {
+        font-size: 16px;
+        opacity: 0.8;
+      }
+
+      .sidebar-nav-list button:hover {
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        transform: translateX(2px);
+      }
+
+      .sidebar-nav-list button.active {
+        background: rgba(255, 51, 102, 0.22);
+        color: var(--text);
+      }
+
+      .sidebar-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border-radius: 999px;
+        border: 1px solid transparent;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: transform var(--transition-fast),
+          box-shadow var(--transition-fast),
+          background-color var(--transition-fast),
+          border-color var(--transition-fast), color var(--transition-fast);
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #ff3366, #ff7a5c);
+        color: #050509;
+        box-shadow: 0 12px 30px rgba(255, 51, 102, 0.5);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 38px rgba(255, 51, 102, 0.65);
+      }
+
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-muted);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+
+      .btn-ghost:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+
+      .btn-icon {
+        font-size: 15px;
+        line-height: 0;
+      }
+
+      @media (max-width: 840px) {
+        .sidebar {
+          position: static;
+          border-radius: 20px;
+        }
+
+        .sidebar-header {
+          margin-bottom: 12px;
+        }
+      }
+
+      /* Main content */
+
+      main {
+        border-radius: var(--radius-xl);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(
+          135deg,
+          rgba(16, 16, 32, 0.98),
+          rgba(6, 6, 16, 0.98)
+        );
+        padding: 26px 26px 34px;
+        box-shadow: var(--shadow-soft);
+        position: relative;
+        overflow: hidden;
+      }
+
+      main::before {
+        content: "";
+        position: absolute;
+        inset: -30%;
+        background: radial-gradient(
+            circle at top right,
+            rgba(255, 255, 255, 0.08),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(255, 51, 102, 0.18),
+            transparent 60%
+          );
+        opacity: 0.7;
+        mix-blend-mode: soft-light;
+        pointer-events: none;
+      }
+
+      .content-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      section {
+        margin-bottom: 36px;
+        position: relative;
+      }
+
+      section:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .section-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 14px;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+      }
+
+      /* Hero */
+
+      .hero {
+        margin-bottom: 30px;
+      }
+
+      .hero-title {
+        font-size: 28px;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+
+      .hero-title span {
+        color: var(--accent);
+      }
+
+      .hero-subtitle {
+        font-size: 15px;
+        color: var(--text-muted);
+        max-width: 640px;
+        margin-bottom: 16px;
+      }
+
+      .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .tag {
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.2);
+        color: var(--text-muted);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.5fr);
+        gap: 14px;
+      }
+
+      @media (max-width: 720px) {
+        .hero-title {
+          font-size: 24px;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .hero-card {
+        border-radius: 20px;
+        background: radial-gradient(
+          circle at top left,
+          rgba(255, 255, 255, 0.03),
+          #151526
+        );
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 14px 16px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+        transition: transform var(--transition-med),
+          box-shadow var(--transition-med), border-color var(--transition-med),
+          background var(--transition-med);
+      }
+
+      .hero-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85);
+        border-color: rgba(255, 255, 255, 0.16);
+        background: radial-gradient(
+          circle at top left,
+          rgba(255, 255, 255, 0.05),
+          #18182a
+        );
+      }
+
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: radial-gradient(
+          circle at top left,
+          rgba(255, 51, 102, 0.17),
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity var(--transition-med);
+        pointer-events: none;
+      }
+
+      .hero-card:hover::before {
+        opacity: 1;
+      }
+
+      .hero-card h3 {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 8px;
+        color: var(--text-muted);
+      }
+
+      .hero-card p {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .hero-meta-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        font-size: 12px;
+      }
+
+      .hero-meta-item {
+        padding: 8px 9px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(0, 0, 0, 0.25);
+        color: var(--text-muted);
+      }
+
+      .hero-meta-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        opacity: 0.7;
+        margin-bottom: 2px;
+      }
+
+      .hero-meta-value {
+        font-size: 12px;
+        color: var(--text);
+      }
+
+      /* Experience */
+
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 120px minmax(0, 1fr);
+        gap: 16px;
+        align-items: flex-start;
+        font-size: 13px;
+      }
+
+      @media (max-width: 680px) {
+        .timeline-item {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .timeline-time {
+        color: var(--text-muted);
+        font-size: 12px;
+        padding-top: 4px;
+      }
+
+      .timeline-card {
+        border-radius: 18px;
+        background: rgba(8, 8, 20, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 14px;
+        position: relative;
+        overflow: hidden;
+        transition: transform var(--transition-med),
+          box-shadow var(--transition-med), border-color var(--transition-med),
+          background var(--transition-med);
+      }
+
+      .timeline-card::before {
+        content: "";
+        position: absolute;
+        width: 5px;
+        inset-block: 12px;
+        left: 0;
+        border-radius: 0 999px 999px 0;
+        background: linear-gradient(180deg, var(--accent), #ffb86c);
+        opacity: 0.6;
+      }
+
+      .timeline-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.9);
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(14, 14, 30, 0.98);
+      }
+
+      .timeline-role {
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+
+      .timeline-company {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+      }
+
+      .timeline-bullets {
+        list-style: none;
+        display: grid;
+        gap: 4px;
+      }
+
+      .timeline-bullets li {
+        position: relative;
+        padding-left: 14px;
+        color: var(--text-muted);
+      }
+
+      .timeline-bullets li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        top: 1px;
+        color: var(--accent);
+        font-size: 12px;
+      }
+
+      /* Skills */
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+        gap: 16px;
+      }
+
+      @media (max-width: 720px) {
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .skills-card {
+        border-radius: 18px;
+        background: rgba(8, 8, 20, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 14px;
+      }
+
+      .skills-card h3 {
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 4px;
+      }
+
+      .chip {
+        font-size: 11px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        color: var(--text-muted);
+      }
+
+      .skills-soft-list {
+        list-style: none;
+        font-size: 13px;
+        color: var(--text-muted);
+        display: grid;
+        gap: 4px;
+        margin-top: 2px;
+      }
+
+      /* Education & Languages */
+
+      .education-card,
+      .languages-card {
+        border-radius: 18px;
+        background: rgba(8, 8, 20, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 12px 14px;
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .education-title {
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 2px;
+      }
+
+      .education-meta {
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .education-list {
+        list-style: none;
+        display: grid;
+        gap: 4px;
+      }
+
+      /* Contact footer */
+
+      .contact-footer {
+        margin-top: 10px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .contact-footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      /* Scroll reveal */
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(2px);
+        transition: opacity 520ms ease-out, transform 520ms ease-out,
+          filter 520ms ease-out;
+      }
+
+      .reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+
+      /* Back to top */
+
+      .back-to-top {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(5, 5, 12, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        color: var(--text-muted);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+        opacity: 0;
+        transform: translateY(12px);
+        pointer-events: none;
+        transition: opacity var(--transition-med),
+          transform var(--transition-med);
+        z-index: 50;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="avatar">
+            <img src="avatar.JPG" alt="LK" />
+          </div>
+          <div class="sidebar-title">
+            <h1>Luca Kramberger</h1>
+            <p>Mobile App Developer (Flutter)</p>
+          </div>
+        </div>
+
+        <div class="sidebar-contact">
+          <p><strong>Location:</strong> Graz, Austria</p>
+          <p>
+            <strong>E-mail:</strong>
+            <a href="mailto:luca.kramberger@gmail.com"
+              >luca.kramberger@gmail.com</a
+            >
+          </p>
+          <p><strong>Date of birth:</strong> 25.08.2003</p>
+          <p><strong>Nationality:</strong> Austrian</p>
+        </div>
+
+        <div class="sidebar-meta">
+          <span class="badge">
+            <span class="badge-dot"></span>
+            Open for opportunities
+          </span>
+          <span class="badge">Mobile &amp; Flutter</span>
+          <span class="badge">Early-stage products</span>
+        </div>
+
+        <div class="sidebar-actions">
+          <a class="btn btn-primary" href="mailto:luca.kramberger@gmail.com">
+            <span>Contact me</span> <span class="btn-icon">✉️</span>
+          </a>
+          <!-- Replace # with actual CV link if hosted -->
+          <a
+            class="btn btn-ghost"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download CV
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main>
+        <div class="content-inner">
+          <!-- Hero / Profile -->
+          <section id="about" class="hero reveal">
+            <div class="section-label">Profile</div>
+            <h2 class="hero-title">
+              I build <span>cross-platform apps</span> with Flutter – from
+              prototype to production.
+            </h2>
+            <p class="hero-subtitle">
+              Mobile developer specialized in Flutter/Dart with strong
+              experience in early-stage product teams. I build apps for iOS,
+              Android, web and desktop end-to-end – including integrations,
+              testing and monitoring. I’m used to working in small teams, taking
+              ownership, and shipping reliable, high-quality apps.
+            </p>
+
+            <div class="hero-tags">
+              <span class="tag">Flutter &amp; Dart</span>
+              <span class="tag">Supabase &amp; Firebase</span>
+              <span class="tag">Stripe &amp; Mapbox</span>
+              <span class="tag">Event platforms &amp; Web3</span>
+            </div>
+
+            <div class="hero-grid">
+              <div class="hero-card">
+                <h3>What I like to work on</h3>
+                <p>
+                  Cross-platform apps that feel native and polished, with solid
+                  architecture and clean APIs: authentication, payments,
+                  real-time features, maps, and everything needed to ship a
+                  production-ready product.
+                </p>
+              </div>
+              <div class="hero-card">
+                <h3>Snapshot</h3>
+                <div class="hero-meta-grid">
+                  <div class="hero-meta-item">
+                    <div class="hero-meta-label">Experience</div>
+                    <div class="hero-meta-value">3+ years hands-on</div>
+                  </div>
+                  <div class="hero-meta-item">
+                    <div class="hero-meta-label">Current focus</div>
+                    <div class="hero-meta-value">CU Development GmbH</div>
+                  </div>
+                  <div class="hero-meta-item">
+                    <div class="hero-meta-label">Location</div>
+                    <div class="hero-meta-value">Graz, AT</div>
+                  </div>
+                  <div class="hero-meta-item">
+                    <div class="hero-meta-label">Stack</div>
+                    <div class="hero-meta-value">
+                      Flutter · Supabase · Firebase
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Experience -->
+          <section id="experience" class="reveal">
+            <div class="section-label">Experience</div>
+            <h2 class="section-title">Professional Experience</h2>
+
+            <div class="timeline">
+              <article class="timeline-item">
+                <div class="timeline-time">11/2021 – Present<br />Graz</div>
+                <div class="timeline-card">
+                  <div class="timeline-role">
+                    Project Manager &amp; Flutter Team Lead
+                  </div>
+                  <div class="timeline-company">
+                    CU Development GmbH – Social-first event platform
+                  </div>
+                  <ul class="timeline-bullets">
+                    <li>
+                      Lead Flutter development of a social-first event platform
+                      (mobile &amp; web).
+                    </li>
+                    <li>
+                      Design app architecture and state management using BLoC
+                      and hydrated_bloc.
+                    </li>
+                    <li>
+                      Implement authentication with Supabase (PostgreSQL, Auth,
+                      Realtime) including e-mail and social logins (Google,
+                      Apple, Facebook).
+                    </li>
+                    <li>
+                      Integrate Stripe and Stripe Connect for in-app payments
+                      and secure payouts.
+                    </li>
+                    <li>
+                      Use Firebase (Push Notifications, App Check) and Sentry
+                      for security, engagement and monitoring.
+                    </li>
+                    <li>
+                      Build custom Mapbox interactive maps and deep
+                      linking/navigation with GoRouter.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="timeline-item">
+                <div class="timeline-time">04/2023 – 06/2025<br />Graz</div>
+                <div class="timeline-card">
+                  <div class="timeline-role">Flutter/Dart App Engineer</div>
+                  <div class="timeline-company">
+                    VouGee GmbH – Web3 crypto exchange
+                  </div>
+                  <ul class="timeline-bullets">
+                    <li>
+                      Further development of a Web3 crypto exchange built in
+                      Flutter/Dart.
+                    </li>
+                    <li>
+                      Implemented end-to-end encrypted chat using a Matrix-style
+                      architecture.
+                    </li>
+                    <li>
+                      Developed wallet and transaction flows and improved UX for
+                      complex crypto actions.
+                    </li>
+                    <li>
+                      Built reusable, responsive UI components using the
+                      internal design system.
+                    </li>
+                    <li>
+                      Integrated and maintained realtime push notifications
+                      (Firebase).
+                    </li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Skills -->
+          <section id="skills" class="reveal">
+            <div class="section-label">Skills</div>
+            <h2 class="section-title">Technologies &amp; Soft Skills</h2>
+
+            <div class="skills-grid">
+              <div class="skills-card">
+                <h3>Technologies &amp; Tools</h3>
+                <div class="skills-list">
+                  <span class="chip">Flutter (mobile, web, desktop)</span>
+                  <span class="chip">Dart</span>
+                  <span class="chip"
+                    >Supabase (PostgreSQL, Auth, Realtime)</span
+                  >
+                  <span class="chip">SQL</span>
+                  <span class="chip">REST APIs</span>
+                  <span class="chip"
+                    >Firebase (Push Notifications, App Check)</span
+                  >
+                  <span class="chip">Stripe &amp; Stripe Connect</span>
+                  <span class="chip">Sentry</span>
+                  <span class="chip">Mapbox</span>
+                  <span class="chip">HTML &amp; CSS</span>
+                  <span class="chip">JavaScript / TypeScript</span>
+                  <span class="chip">Java</span>
+                  <span class="chip">Python</span>
+                  <span class="chip">VMware &amp; VirtualBox</span>
+                  <span class="chip">MS Office</span>
+                </div>
+              </div>
+
+              <div class="skills-card">
+                <h3>Soft Skills</h3>
+                <ul class="skills-soft-list">
+                  <li>
+                    Clear communication with technical and non-technical
+                    stakeholders.
+                  </li>
+                  <li>
+                    Experience coordinating a small dev team while staying
+                    hands-on.
+                  </li>
+                  <li>
+                    Strong ownership mindset and structured way of working.
+                  </li>
+                  <li>Curious problem-solver and fast learner.</li>
+                  <li>Focus on polished UX and reliable delivery.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Education & Languages -->
+          <section id="education" class="reveal">
+            <div class="section-label">Background</div>
+            <h2 class="section-title">Education &amp; Languages</h2>
+
+            <div class="pill-row">
+              <span
+                >Formal software engineering background &amp; hands-on product
+                experience.</span
+              >
+            </div>
+
+            <div
+              style="
+                display: grid;
+                gap: 16px;
+                grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+              "
+            >
+              <div class="education-card">
+                <div class="education-title">
+                  HTL Leoben – Higher Technical College, Software Engineering
+                  &amp; Planning
+                </div>
+                <div class="education-meta">09/2017 – 07/2022</div>
+                <ul class="education-list">
+                  <li>
+                    Degree: Matura (Austrian A-level equivalent; Reife- und
+                    Diplomprüfung).
+                  </li>
+                  <li>
+                    Focus on software development, planning and project work.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="languages-card">
+                <strong>Languages</strong>
+                <ul class="education-list" style="margin-top: 6px">
+                  <li>German: Native</li>
+                  <li>English: B2 (confident in technical communication)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Contact -->
+          <section id="contact" class="reveal">
+            <div class="section-label">Contact</div>
+            <h2 class="section-title">Let’s talk</h2>
+            <p
+              style="
+                max-width: 520px;
+                color: var(--text-muted);
+                font-size: 14px;
+                margin-bottom: 16px;
+              "
+            >
+              If you’re looking for someone to build or extend a Flutter-based
+              product, I’d be happy to talk. I’m used to taking ownership,
+              working closely with product &amp; design, and iterating quickly.
+            </p>
+
+            <div
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 10px;
+              "
+            >
+              <a
+                class="btn btn-primary"
+                href="mailto:luca.kramberger@gmail.com"
+              >
+                ✉️ Write me an e-mail
+              </a>
+            </div>
+
+            <p style="font-size: 13px; color: var(--text-muted)">
+              Or connect via e-mail and we can schedule a short call or live
+              coding session.
+            </p>
+          </section>
+
+          <div class="contact-footer">
+            <span
+              >© <span id="year"></span> – Built with Flutter in mind, coded in
+              HTML/CSS.</span
+            >
+            <span
+              >Graz, Austria ·
+              <a href="mailto:luca.kramberger@gmail.com"
+                >luca.kramberger@gmail.com</a
+              ></span
+            >
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" aria-label="Back to top">↑</button>
+
+    <script>
+      // Set year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Scroll reveal on sections
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.14,
+        }
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // Smooth scroll navigation (sidebar)
+      const navButtons = document.querySelectorAll(".sidebar-nav-list button");
+      navButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-target");
+          const target = document.getElementById(id);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      // Highlight active section in nav
+      const sections = document.querySelectorAll("main section[id]");
+      const setActiveNav = () => {
+        let currentId = "";
+        const scrollY = window.pageYOffset;
+
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          const offsetTop = rect.top + scrollY;
+          if (scrollY >= offsetTop - 200) {
+            currentId = section.id;
+          }
+        });
+
+        navButtons.forEach((btn) => {
+          btn.classList.toggle(
+            "active",
+            btn.getAttribute("data-target") === currentId
+          );
+        });
+      };
+      window.addEventListener("scroll", setActiveNav);
+      setActiveNav();
+
+      // Back to top visibility + behavior
+      const backToTop = document.querySelector(".back-to-top");
+      const toggleBackToTop = () => {
+        if (window.scrollY > 320) {
+          backToTop.classList.add("visible");
+        } else {
+          backToTop.classList.remove("visible");
+        }
+      };
+      window.addEventListener("scroll", toggleBackToTop);
+      toggleBackToTop();
+
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>
